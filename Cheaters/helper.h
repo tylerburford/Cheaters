@@ -10,7 +10,7 @@ using namespace std;
 
 int getdir (string dir, vector<string> &files);
 
-
+void nSeq (vector<string> &files, int nWord);
 
 
 

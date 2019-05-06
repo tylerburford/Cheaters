@@ -18,26 +18,9 @@ int main() {
     for (unsigned int i = 0;i < files.size();i++) {
         cout << i << files[i] << endl;
     }
+    int nWord=4;
 
-    ifstream inFile;
-    inFile.open("/Users/barrett/Xcode Projects/Cheaters/sm_doc_set/abf70402.txt");
-    if (!inFile) {
-        cout << "Unable to open file";
-        exit(1); // terminate with error
-    }
-    string s;
-    vector<string> words = vector<string>();
-    while (inFile) {
-        inFile >> s;
-        for(int i=0;i<s.length();i++){
-            if(isalnum(s[i])==0)
-                s.erase(i,1);
-        }
-        words.push_back(s);
-    }
-    for(int i=0; i<words.size();i++){
-        cout << words[i] + " ";
-    }
+    nSeq(files, nWord);
 
     return 0;
 }

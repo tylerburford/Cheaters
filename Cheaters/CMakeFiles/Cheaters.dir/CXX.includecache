@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/barrett/Xcode Projects/Cheaters/helper.h
+vector
+-
+string
+-
+
+/Users/barrett/Xcode Projects/Cheaters/main.cpp
+iostream
+-
+sys/types.h
+-
+dirent.h
+-
+errno.h
+-
+vector
+-
+string
+-
+fstream
+-
+helper.h
+/Users/barrett/Xcode Projects/Cheaters/helper.h
+locale
+-
+

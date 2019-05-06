@@ -25,3 +25,36 @@ int getdir (string dir, vector<string> &files)
     closedir(dp);
     return 0;
 }
+
+void nSeq(vector<string> &files, int nWord){
+
+    int fileIndex=0;
+    for(int f=2;f<files.size();f++) {
+        ifstream inFile;
+        string fileName="/Users/barrett/Xcode Projects/Cheaters/sm_doc_set/";
+        fileName+=files[f];
+        cout<<files[f];
+        inFile.open(fileName);
+        if (!inFile) {
+            cout << "Unable to open file";
+            exit(1); // terminate with error
+        }
+        string s;
+        vector<string> words = vector<string>();
+        while (inFile) {
+            inFile >> s;
+            for (int i = 0; i < s.length(); i++) {
+                if (isalnum(s[i]) == 0)
+                    s.erase(i, 1);
+            }
+            words.push_back(s);
+        }
+
+        for (int i = 0; i < words.size(); i++) {
+            for (int j = i; j < i + nWord; j++)
+                cout << words[j] + " ";
+
+        }
+        cout << "\n";
+    }
+}
