@@ -3,4 +3,4 @@ project(Cheaters)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Cheaters main.cpp helper.h helper.cpp)
+add_executable(Cheaters main.cpp helper.h helper.cpp hasher.h hasher.cpp)
