@@ -8,6 +8,7 @@
 #include "helper.h"
 #include <locale>
 
+
 using namespace std;
 int main() {
     string dir = string("/Users/barrett/Xcode Projects/Cheaters/sm_doc_set");
@@ -15,12 +16,12 @@ int main() {
 
     getdir(dir,files);
 
-    for (unsigned int i = 0;i < files.size();i++) {
-        cout << i << files[i] << endl;
-    }
     int nWord=4;
+    HashMap ourMap;
+    nSeq(files, nWord, ourMap);
+    //everything is hashed
+    
 
-    nSeq(files, nWord);
 
     return 0;
 }

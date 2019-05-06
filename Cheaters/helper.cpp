@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <fstream>
 #include "helper.h"
+
+
 using namespace std;
 int getdir (string dir, vector<string> &files)
 {
@@ -26,7 +28,8 @@ int getdir (string dir, vector<string> &files)
     return 0;
 }
 
-void nSeq(vector<string> &files, int nWord){
+void nSeq(vector<string> &files, int nWord, HashMap ourMap){
+
 
     int fileIndex=0;
     for(int f=2;f<files.size();f++) {
@@ -39,6 +42,8 @@ void nSeq(vector<string> &files, int nWord){
             cout << "Unable to open file";
             exit(1); // terminate with error
         }
+        //file opened
+
         string s;
         vector<string> words = vector<string>();
         while (inFile) {
@@ -47,13 +52,18 @@ void nSeq(vector<string> &files, int nWord){
                 if (isalnum(s[i]) == 0)
                     s.erase(i, 1);
             }
+            transform(s.begin(), s.end(), s.begin(), ::tolower);
             words.push_back(s);
         }
 
         for (int i = 0; i < words.size(); i++) {
-            for (int j = i; j < i + nWord; j++)
+            string seq="";
+            for (int j = i; j < i + nWord; j++) {
                 cout << words[j] + " ";
-
+                seq+=words[j];
+            }
+            ourMap.add(ourMap.hash(seq),files[f]);
+            cout<< ourMap.hash(seq);
         }
         cout << "\n";
     }

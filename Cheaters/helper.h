@@ -6,11 +6,12 @@
 #define CHEATERS_HELPER_H
 #include <vector>
 #include <string>
+#include "hasher.h"
 using namespace std;
 
 int getdir (string dir, vector<string> &files);
 
-void nSeq (vector<string> &files, int nWord);
+void nSeq (vector<string> &files, int nWord, HashMap ourMap);
 
 
 
