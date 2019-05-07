@@ -1,22 +1,16 @@
-//
-// Created by Barrett Stricklin on 2019-05-05.
-//
 
 #ifndef CHEATERS_HASHER_H
 #define CHEATERS_HASHER_H
-
 #endif //CHEATERS_HASHER_H
-
 #include <vector>
 #include <string>
-
 using namespace std;
 
 class HashMap
 {
     struct HashElement{
         int key;
-        string fileName;
+        int fileInd;
         struct HashElement* next;
     };
     static const int SIZEOFMAP=100000;
@@ -24,9 +18,11 @@ class HashMap
 public:
     HashMap();
    // ~HashMap();
-    void add(int key, string fileName);
+    void add(int key, int fileInd);
     int hash(string hashee);
+    void fillArr(vector<string> files);
 
-private:
+
+
     HashElement* theMap[SIZEOFMAP];
 };

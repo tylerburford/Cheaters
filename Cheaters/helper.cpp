@@ -1,6 +1,3 @@
-//
-// Created by Barrett Stricklin on 2019-05-01.
-//
 #include <vector>
 #include <string>
 #include <iostream>
@@ -29,10 +26,9 @@ int getdir (string dir, vector<string> &files)
 }
 
 void nSeq(vector<string> &files, int nWord, HashMap ourMap){
-
-
     int fileIndex=0;
-    for(int f=2;f<files.size();f++) {
+
+    for(int f=0;f<files.size();f++) {
         ifstream inFile;
         string fileName="/Users/barrett/Xcode Projects/Cheaters/sm_doc_set/";
         fileName+=files[f];
@@ -46,7 +42,7 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap){
 
         string s;
         vector<string> words = vector<string>();
-        while (inFile) {
+        while(inFile) {
             inFile >> s;
             for (int i = 0; i < s.length(); i++) {
                 if (isalnum(s[i]) == 0)
@@ -55,6 +51,8 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap){
             transform(s.begin(), s.end(), s.begin(), ::tolower);
             words.push_back(s);
         }
+        //Words from the file we are on have been sanitized and pushed into words
+
 
         for (int i = 0; i < words.size(); i++) {
             string seq="";
@@ -62,9 +60,10 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap){
                 cout << words[j] + " ";
                 seq+=words[j];
             }
-            ourMap.add(ourMap.hash(seq),files[f]);
-            cout<< ourMap.hash(seq);
+            ourMap.add(ourMap.hash(seq),f);
+            //cout<< ourMap.hash(seq);
         }
         cout << "\n";
     }
 }
+
