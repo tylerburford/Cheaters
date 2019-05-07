@@ -13,6 +13,7 @@ class HashMap
         int fileInd;
         struct HashElement* next;
     };
+
     static const int SIZEOFMAP=100000;
 
 public:
@@ -20,9 +21,13 @@ public:
    // ~HashMap();
     void add(int key, int fileInd);
     int hash(string hashee);
-    void fillArr(vector<string> files);
-
-
-
+    struct colPair{
+        int collisions;
+        string file1;
+        string file2;
+    };
+    vector<HashMap::colPair> fillArr(vector<string> files);
+    friend bool operator<(const HashMap::colPair &lval,const HashMap::colPair &rval );
+    friend bool operator>(const HashMap::colPair &lval, const HashMap::colPair &rval);
     HashElement* theMap[SIZEOFMAP];
 };

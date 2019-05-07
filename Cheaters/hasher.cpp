@@ -35,9 +35,11 @@ void HashMap::add(int key, int fileInd){
         search->next=temp;
     }
 }
-void HashMap::fillArr(vector<string> files) {
+vector<HashMap::colPair> HashMap::fillArr(vector<string> files) {
     int fileSize = files.size();
-    int comparisons[25][25]; //TODO: fix weird issue with wrong 2d array size when using fileSize
+    int** comparisons = new int*[fileSize];
+    for(int i = 0; i < fileSize; ++i)
+        comparisons[i] = new int[fileSize];
     for(int h=0;h<fileSize;h++){
         for(int r=0;r<fileSize;r++) {
             comparisons[h][r]=0;
@@ -61,12 +63,20 @@ void HashMap::fillArr(vector<string> files) {
                 }
         }
     }
-    cout << "begingging of table";
+    vector<colPair> results;
+    results.push_back(colPair());
+    results.clear();
     for(int i=0;i<fileSize;i++){
         for(int j=i+1;j<fileSize;j++){
-            cout << "Collisions between "<< files[i] << " and " << files[j] << ": "<<comparisons[i][j] << "\n ";
-        }cout << "\n";
+            colPair *current=new colPair;
+            current->collisions=comparisons[i][j];
+            current->file1=files[i];
+            current->file2=files[j];
+            results.push_back(*current);
+            //cout << "Collisions between "<< files[i] << " and " << files[j] << ": "<<comparisons[i][j] << "\n ";
+        }//cout << "\n";
     }
+    return results;
 }
 
 int HashMap::hash(string hashee){
@@ -76,4 +86,17 @@ int HashMap::hash(string hashee){
     }
     return result % 100000;
 
+}
+
+bool operator<(const HashMap::colPair &lval,const HashMap::colPair &rval ){
+    if(lval.collisions<rval.collisions)
+        return true;
+    else
+        return false;
+}
+bool operator>(const HashMap::colPair &lval,const HashMap::colPair &rval ){
+    if(lval.collisions>rval.collisions)
+        return true;
+    else
+        return false;
 }

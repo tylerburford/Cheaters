@@ -6,6 +6,8 @@
 #include <errno.h>
 #include <fstream>
 #include "helper.h"
+#include <stdlib.h>
+#include <algorithm>
 
 
 using namespace std;
@@ -25,14 +27,14 @@ int getdir (string dir, vector<string> &files)
     return 0;
 }
 
-void nSeq(vector<string> &files, int nWord, HashMap ourMap){
+void nSeq(vector<string> &files, int nWord, HashMap ourMap, string filePath){
     int fileIndex=0;
 
     for(int f=0;f<files.size();f++) {
         ifstream inFile;
-        string fileName="/Users/barrett/Xcode Projects/Cheaters/sm_doc_set/";
-        fileName+=files[f];
-        cout<<files[f];
+        string fileName=filePath;
+        fileName+="/"+files[f];
+        //cout<<files[f];
         inFile.open(fileName);
         if (!inFile) {
             cout << "Unable to open file";
@@ -45,7 +47,7 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap){
         while(inFile) {
             inFile >> s;
             for (int i = 0; i < s.length(); i++) {
-                if (isalnum(s[i]) == 0)
+                if (isalnum(s[i]) == 0 || s[i]==' ')
                     s.erase(i, 1);
             }
             transform(s.begin(), s.end(), s.begin(), ::tolower);
@@ -57,13 +59,13 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap){
         for (int i = 0; i < words.size(); i++) {
             string seq="";
             for (int j = i; j < i + nWord; j++) {
-                cout << words[j] + " ";
+                //cout << words[j] + " ";
                 seq+=words[j];
             }
             ourMap.add(ourMap.hash(seq),f);
             //cout<< ourMap.hash(seq);
         }
-        cout << "\n";
+        //cout << "\n";
     }
 }
 
