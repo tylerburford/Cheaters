@@ -46,24 +46,31 @@ void nSeq(vector<string> &files, int nWord, HashMap ourMap, string filePath){
         vector<string> words = vector<string>();
         while(inFile) {
             inFile >> s;
+            s.erase(remove(s.begin(), s.end(), '\n'), s.end());
             for (int i = 0; i < s.length(); i++) {
-                if (isalnum(s[i]) == 0 || s[i]==' ')
+                if (isalnum(s[i]) == 0  ){
                     s.erase(i, 1);
+                    i--;}
             }
+
             transform(s.begin(), s.end(), s.begin(), ::tolower);
+            //if(s.find("words")!=string::npos)
+              //  break;
             words.push_back(s);
         }
         //Words from the file we are on have been sanitized and pushed into words
 
 
         for (int i = 0; i < words.size(); i++) {
-            string seq="";
-            for (int j = i; j < i + nWord; j++) {
+            string *seq=new string;
+            for (int j = i; j < (i + nWord) && j< (words.size()); j++) {
                 //cout << words[j] + " ";
-                seq+=words[j];
+                *seq+=string(words[j]);
+                //cout << *seq << endl;
             }
-            ourMap.add(ourMap.hash(seq),f);
+            ourMap.add(ourMap.hash(*seq),f);
             //cout<< ourMap.hash(seq);
+            delete seq;
         }
         //cout << "\n";
     }

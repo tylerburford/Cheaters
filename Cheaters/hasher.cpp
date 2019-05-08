@@ -14,6 +14,8 @@ HashMap::HashMap() {
         theMap[i]=tmp;
     }
 }
+HashMap::~HashMap()=default;
+
 void HashMap::add(int key, int fileInd){
     HashElement *tba=new HashElement;
     tba->key=key;

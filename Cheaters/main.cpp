@@ -12,6 +12,7 @@
 
 using namespace std;
 int main(int argc, char *argv[]) {
+    cout << "program start: " <<endl;
     string filePath=string(argv[1]);
     string dir = string(filePath);
     vector<string> files = vector<string>();
@@ -24,6 +25,7 @@ int main(int argc, char *argv[]) {
     nSeq(files, nWord, ourMap,filePath);
     //everything is hashed
     vector<HashMap::colPair> final=ourMap.fillArr(files);
+    ourMap.~HashMap();
     sort(final.rbegin(), final.rend());
     for(vector<HashMap::colPair>::iterator it=final.begin();it!=final.end();it++){
         if(it->collisions>limit)

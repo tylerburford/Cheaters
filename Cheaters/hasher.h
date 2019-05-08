@@ -18,7 +18,7 @@ class HashMap
 
 public:
     HashMap();
-   // ~HashMap();
+    ~HashMap();
     void add(int key, int fileInd);
     int hash(string hashee);
     struct colPair{
