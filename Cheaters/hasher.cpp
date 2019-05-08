@@ -5,7 +5,8 @@
 #include <cmath>
 using namespace std;
 
-HashMap::HashMap() {
+//constructor
+HashMap::HashMap(){
     for (int i = 0; i < SIZEOFMAP; i++) {
         HashElement *tmp=new HashElement();
         tmp->key = -1;
@@ -14,8 +15,10 @@ HashMap::HashMap() {
         theMap[i]=tmp;
     }
 }
+//default destructor
 HashMap::~HashMap()=default;
 
+//adds hash elements to hash map
 void HashMap::add(int key, int fileInd){
     HashElement *tba=new HashElement;
     tba->key=key;
@@ -37,7 +40,8 @@ void HashMap::add(int key, int fileInd){
         search->next=temp;
     }
 }
-vector<HashMap::colPair> HashMap::fillArr(vector<string> files) {
+    //detects collisions from hashmap and puts them into 2d array
+vector<HashMap::colPair> HashMap::fillArr(vector<string> files){
     int fileSize = files.size();
     int** comparisons = new int*[fileSize];
     for(int i = 0; i < fileSize; ++i)
@@ -46,23 +50,25 @@ vector<HashMap::colPair> HashMap::fillArr(vector<string> files) {
         for(int r=0;r<fileSize;r++) {
             comparisons[h][r]=0;
         }
-        }
+    }
+    //2d array has been initialized
     HashElement *ptr;
     for(int i=0;i<SIZEOFMAP;i++){
-        if(theMap[i]!= NULL){
-            vector<int> coll;
+        if(theMap[i]!= NULL){   //check if there are any collisions
+            vector<int> coll;   //if so, go to the end of the linked list and attach the collision there
             ptr = theMap[i];
             while (ptr!= NULL) {
                 coll.push_back(ptr->fileInd);
                 ptr = ptr->next;
             }
-            if(coll.size() > 1)
-                for(int j=0;j<coll.size();j++){
-                    for(int k=j+1;k<coll.size();k++){
+            if(coll.size() > 1){
+                for (int j = 0; j < coll.size(); j++) {
+                    for (int k = j + 1; k < coll.size(); k++) {
                         comparisons[coll[j]][coll[k]]++;
                         comparisons[coll[k]][coll[j]]++;
                     }
                 }
+            }
         }
     }
     vector<colPair> results;
@@ -75,13 +81,12 @@ vector<HashMap::colPair> HashMap::fillArr(vector<string> files) {
             current->file1=files[i];
             current->file2=files[j];
             results.push_back(*current);
-            //cout << "Collisions between "<< files[i] << " and " << files[j] << ": "<<comparisons[i][j] << "\n ";
-        }//cout << "\n";
+        }
     }
     return results;
 }
 
-int HashMap::hash(string hashee){
+int HashMap::hash(string hashee){   //hashing function
     unsigned long result=0;
     for(int i=0;i<hashee.length();i++){
         result+=((long)hashee[i]* (long)pow(3,i));
@@ -90,12 +95,15 @@ int HashMap::hash(string hashee){
 
 }
 
+//overloaded operator for use in sorting function
 bool operator<(const HashMap::colPair &lval,const HashMap::colPair &rval ){
     if(lval.collisions<rval.collisions)
         return true;
     else
         return false;
 }
+
+//overloaded operator for use in sorting function
 bool operator>(const HashMap::colPair &lval,const HashMap::colPair &rval ){
     if(lval.collisions>rval.collisions)
         return true;
